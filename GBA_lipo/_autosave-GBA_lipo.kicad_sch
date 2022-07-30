@@ -2172,7 +2172,7 @@
   (symbol (lib_id "Device:LED") (at 80.01 39.37 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 0022ecd0-0d5d-43eb-960f-e462c72a9484)
-    (property "Reference" "D?" (id 0) (at 77.47 38.1 0)
+    (property "Reference" "D1" (id 0) (at 77.47 38.1 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "GREEN_LED" (id 1) (at 83.82 35.56 0)
@@ -3206,7 +3206,7 @@
   (symbol (lib_id "Device:LED") (at 88.9 39.37 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid eaffb727-c925-4be7-82d6-34c7acf4f871)
-    (property "Reference" "D?" (id 0) (at 86.36 38.1 0)
+    (property "Reference" "D2" (id 0) (at 86.36 38.1 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "RED_LED" (id 1) (at 92.71 35.56 0)
@@ -3350,10 +3350,10 @@
       (reference "C7") (unit 1) (value "150pF") (footprint "Capacitor_SMD:C_0603_1608Metric")
     )
     (path "/0022ecd0-0d5d-43eb-960f-e462c72a9484"
-      (reference "D?") (unit 1) (value "GREEN_LED") (footprint "LED_SMD:LED_0603_1608Metric")
+      (reference "D1") (unit 1) (value "GREEN_LED") (footprint "LED_SMD:LED_0603_1608Metric")
     )
     (path "/eaffb727-c925-4be7-82d6-34c7acf4f871"
-      (reference "D?") (unit 1) (value "RED_LED") (footprint "LED_SMD:LED_0603_1608Metric")
+      (reference "D2") (unit 1) (value "RED_LED") (footprint "LED_SMD:LED_0603_1608Metric")
     )
     (path "/a96882fa-8df4-4031-bf5e-4c4cba60fcaf"
       (reference "J1") (unit 1) (value "USB_C_Receptacle") (footprint "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12")
