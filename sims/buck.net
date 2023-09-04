@@ -1,0 +1,14 @@
+* C:\users\samgriffen\My Documents\Projects\GBA_lipo\sims\buck.asc
+M1 VBAT VUSB Vin Vin IRF7233
+D1 VUSB Vin 1N5817
+V1 VUSB 0 PULSE(0 5 10m 1n 1n 10m 20m)
+V2 VBAT 0 PULSE(0 4 1m 1n 1n 4m 8m)
+R1 VUSB 0 1Meg
+.model D D
+.lib C:\users\samgriffen\My Documents\LTspiceXVII\lib\cmp\standard.dio
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\users\samgriffen\My Documents\LTspiceXVII\lib\cmp\standard.mos
+.tran 0 100m 0 startup
+.backanno
+.end

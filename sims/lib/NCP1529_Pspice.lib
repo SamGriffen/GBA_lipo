@@ -1,0 +1,118 @@
+********************************************************
+*              NCP1529 Pspice Model                    *
+*                                                      *
+*              Created by: Gang Chen                   *
+*              Rev.0.0     April 2011                  *
+*                                                      *
+*           Property of ON Semiconductor               *
+********************************************************
+
+.SUBCKT NCP1529 VIN EN GND FB SW  
+
+X_U120         N6950847 N6950433 $G_DPWR $G_DGND BUF
+R_R26         N6952735 SOFT  100k  
+E_E8         N6953563 0 VALUE { if(-v(err)<-0.000,5,0) }
+X_U101         $D_HI N6953357 N6953361 M_UN0001 N6953243 $G_DPWR $G_DGND DFFRH
+E_E12         ERR 0 VALUE { if(v(protect)<2.5,100m,v(N6951355)) }
+C_C11         GND SOFT  1p  
+R_R5         N6950593 VIN  40m  
+X_U102         N6951793 PWMCOMP $G_DPWR $G_DGND BUF
+C_C2         GND SOFT  1n IC=0 
+E_E2         N6951711 0 VALUE { V(N6951889)+V(N6951799) }
+E_E10         N6951177 0 VALUE { if(v(pmos)>2.5,5,0) }
+X_U70         CLK NL N6952411  $G_DPWR $G_DGND AND2
+U_DSTM12         STIM(1,1) $G_DPWR $G_DGND CLK IO_STM IO_LEVEL=0 
++ 0 0
++ +0.0001U 1
++REPEAT FOREVER
++ +10n 0
++  +578n 1
++ ENDREPEAT
+X_U100         $D_HI N6952411 N69522152 N6952417 M_UN0002 $G_DPWR $G_DGND DFFRH
+V_V10         N69519270 0 0.01
+C_C12         0 N6951355  0.8p  
+X_S1    PMOS 0 N6950593 N6950585 SCHEMATIC1_S1 
+E_LIMIT1         N6950847 0 VALUE {(((5)+(0))/2) + ((((5)-(0))/2) *
++  TANH((1k)*(V(N6950637)-(((5)+(0))/2))/((((5)-(0))/2))))}
+E_E3         N6951765 0 VALUE { V(N6951711)+i(V_vlx) }
+X_U95         UVLO N6950433 PROTECT  $G_DPWR $G_DGND AND2
+X_U108         N6953357 N6953361 $G_DPWR $G_DGND DELAY PARAMS:
++ DELAY=100ns TOL=10 IO_LEVEL=0 MNTYMXDLY=0
+R_R24         N69514691 N6951355  360k  
+E_uvlo1         N6952937 0 VALUE { if(v(VIN)>2.2,5,0) }
+E_pwmcomparator         N6951793 0 VALUE { if(v(N6951765,N69519270)>0,5,0) }
+R_R6         N6950507 N6950585  40m  
+U_DSTM13         STIM(1,1) $G_DPWR $G_DGND POR IO_STM IO_LEVEL=0 
++ 0 0
++ +10n 1
++REPEAT FOREVER
++ +1 0
++  +10n 1
++ ENDREPEAT
+E_NEGATIVECURRENTCOMP2         N6951257 0 VALUE { if(i(V_vlx)<0,5,0) }
+X_U178         TONMIN N6952349 N6952277 POR/ N69522152 $G_DPWR $G_DGND OR4
+X_S2    NMOS 0 N6950507 N6950853 SCHEMATIC1_S2 
+X_S3    N6952883 GND N6952735 GND SCHEMATIC1_S3 
+C_C10         0 N69514691  12p IC=0 
+X_U91         N6952511 N6952477 NMOS  $G_DPWR $G_DGND AND2
+R_R16         SOFT GND  100meg  
+X_U47         N6952937 CLK N6953209 UVLO M_UN0003 $G_DPWR $G_DGND RSFF
+X_U125         POR POR/  $G_DPWR $G_DGND INV
+E_E11         N6950637 0 VALUE { if(V(EN, 0)>0.7,5,0) }
+X_U30         PMOS N6952511  $G_DPWR $G_DGND INV
+X_U117         EN UVLO N6952417 PMOS $G_DPWR $G_DGND AND3
+R_R17         GND FB  100meg  
+G_G5         0 N6951355 VALUE { V(N6951359)*V(N6951813) }
+V_V2         VREF GND 0.6Vdc
+R_R8         N6950853 GND  40m  
+G_G4         0 N6951355 VALUE { V(0, N6951359) }
+E_pwmcomparator1         VREFOK 0 VALUE { if(v(SOFT)>0.570,0,5) }
+E_uvlo2         N6953209 0 VALUE { if(v(VIN)<2.1,5,0) }
+X_U103         N6950433 EN/  $G_DPWR $G_DGND INV
+E_modecomparator         N6953485 0 VALUE { if(-v(err)>0.011,5,0) }
+X_U135         $D_HI N6951257 N6951269 ZCD M_UN0004 $G_DPWR $G_DGND DFFRH
+E_ilim         N6952277 0 VALUE { if(i(V_vlx)>1500,5,0) }
+X_U110         PWMCOMP N6953357  $G_DPWR $G_DGND INV
+E_E15         N6951359 0 VALUE { V(SOFT, FB)*16e-6 }
+X_S8    PROTECT 0 VREF N6952677 SCHEMATIC1_S8 
+D_D1         N6950585 N6950593 Dbreak 
+E_E13         N6952349 0 VALUE { if(v(nl)<2.5,5,0) }
+E_E14         N6951813 0 VALUE { if(v(N6951355)>0,v(N6951355)*10,0) }
+X_U150         N6951177 EN/ POR/ N6951269 $G_DPWR $G_DGND OR3
+D_D2         N6950853 N6950507 Dbreak 
+X_U46         N6953485 CLK N6953563 NL NLB $G_DPWR $G_DGND RSFF
+R_R25         0 N6951355  100meg  
+V_vlx         N6950507 SW   
+X_U112         PWMCOMP N6953243 TONMIN  $G_DPWR $G_DGND AND2
+X_U98         PROTECT N6952883  $G_DPWR $G_DGND INV
+V_V7         N6951799 0  
++PULSE 0 789m 0 587n 0.5n 0.5n 588n
+E_clampneg         N6951889 0 VALUE { if(v(ERR,0)>-2,v(ERR),-2) }
+X_U69         ZCD N6952477  $G_DPWR $G_DGND INV
+R_R4         N6952677 SOFT  60k  
+.ENDS
+
+
+.subckt SCHEMATIC1_S1 1 2 3 4  
+S_S1         3 4 1 2 _S1
+RS_S1         1 2 1G
+.MODEL         _S1 VSWITCH Roff=10e6 Ron=0.4 Voff=1.0V Von=2.0V
+.ends SCHEMATIC1_S1
+
+.subckt SCHEMATIC1_S2 1 2 3 4  
+S_S2         3 4 1 2 _S2
+RS_S2         1 2 1G
+.MODEL         _S2 VSWITCH Roff=10e6 Ron=0.4 Voff=1.0V Von=2.0V
+.ends SCHEMATIC1_S2
+
+.subckt SCHEMATIC1_S3 1 2 3 4  
+S_S3         3 4 1 2 _S3
+RS_S3         1 2 1G
+.MODEL         _S3 VSWITCH Roff=10e6 Ron=0.4 Voff=1.0V Von=2.0V
+.ends SCHEMATIC1_S3
+
+.subckt SCHEMATIC1_S8 1 2 3 4  
+S_S8         3 4 1 2 _S8
+RS_S8         1 2 1G
+.MODEL         _S8 VSWITCH Roff=1e9 Ron=0.4 Voff=1.0V Von=2.0V
+.ends SCHEMATIC1_S8
